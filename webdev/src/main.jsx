@@ -11,6 +11,7 @@ function NewTaskForm({onNewTask}) {
         e.preventDefault();
         console.log("Submitting task: ",{ title } )
         onNewTask({title})
+        setTitle("");
     }
 
     return <form onSubmit={handleSubmit}>
@@ -22,7 +23,7 @@ function NewTaskForm({onNewTask}) {
                     onChange={e => setTitle(e.target.value)}
             /></label>
             </div>
-            <button>Submit</button>
+            <button>Submit new task: "{title}"</button>
         </form>;
 }
 
@@ -36,11 +37,13 @@ function TaskApplication() {
     return (
         <>
            <h1>Here are the tasks we need to do!</h1>
-
-            <ul>
-                {tasks.map((task) => (<li>{task.title}</li>))}
-            </ul>
-
+                {tasks.map((task) => (
+                <div key={task.title}>
+                    <label>
+                        <input type={"checkbox"}/>
+                        {task.title}
+                    </label>
+                </div>))}
             <NewTaskForm  onNewTask={handleNewTask} />
         </>
     );
