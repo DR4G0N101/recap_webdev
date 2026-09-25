@@ -44,8 +44,6 @@ function TaskApplication() {
     }, [])
 
     async function handleNewTask(task) {
-        setTasks((prevTasks) => [...prevTasks, task]);
-
         await fetch("/api/tasks", {
             method: "POST",
             headers: {
@@ -53,6 +51,7 @@ function TaskApplication() {
             },
             body: JSON.stringify(task),
         })
+        await loadTasks();
     }
 
     return (
